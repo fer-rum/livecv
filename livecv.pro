@@ -14,7 +14,7 @@
 
 !qtVersionCheck(5, 6)::error( \
     This project requires at least Qt version 5.6. \
-    Make sure you have Qt 5.6 installed and running the correct qmake. \
+    Make sure you have at least Qt 5.6 installed and are running the correct qmake. \
 )
 
 # --- Project structure ---

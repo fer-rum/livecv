@@ -22,7 +22,7 @@ defineTest(initVar){
         $$1 = $$2
         export($$1)
     } else {
-        # message($$1 already defined) # TODO better use a proper debug level
+        warning(QMake variable $$1 already defined)
     }
 }
 
@@ -92,7 +92,7 @@ defineTest(linkLocalLibrary){
     export(INCLUDEPATH)
     export(DEPENDPATH)
 
-    debug(Linking: $$LIB_PATH -$$LIB_NAME with include path: $$LIB_INCLUDE_PATH, 1)
+    message(Linking: $$LIB_PATH -$$LIB_NAME with include path: $$LIB_INCLUDE_PATH)
 }
 
 # Links a local plugin to the current project
