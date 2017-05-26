@@ -27,9 +27,9 @@ SUBDIRS += \
     plugins
 
 # --- Subdir configurations ---
-application.subdir  = application
-editor.subdir       = editor
-plugins.subdir      = plugins
+application.subdir  = $$PWD/application
+editor.subdir       = $$PWD/editor
+plugins.subdir      = $$PWD/plugins
 
 # --- Dependency configuration ---
 application.depends = editor
@@ -48,6 +48,8 @@ OTHER_FILES += \
 !defined(CONFIG_DIR_IN_PROJECT_TREE, var){
     OTHER_FILES *= $$CONFIG_DIR/*.pri
 }
+
+OTHER_FILES *= project/*.pri
 
 # NOTE: It is not required to explicitly
 #include($$PWD/config/config_functions.pri)

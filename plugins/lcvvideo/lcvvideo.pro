@@ -2,7 +2,7 @@ PLUGIN_NAME = lcvvideo
 PLUGIN_PATH = $$PWD
 
 # PLUGIN_NAME and PLUGIN_PATH must be set up prior to including this config file
-include($$getConfigFile(is_plugin.pri))
+include($$getGlobalFile(plugin.pri))
 
 uri = plugins.lcvvideo
 
@@ -21,7 +21,6 @@ linkLocalPlugin(lcvcore, lcvcore)
 include($$PWD/src/lcvvideo.pri)
 include($$PWD/include/lcvvideoheaders.pri)
 include($$PROJECT_ROOT/3rdparty/opencvconfig.pro)
-deployOpenCV()
 
 OTHER_FILES *= \
     qml/*.qml \

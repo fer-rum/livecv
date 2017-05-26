@@ -41,6 +41,10 @@ Rectangle{
     property alias text: editorArea.text
     property alias font: editorArea.font
 
+    function getCursorRectangle(){
+        return editorArea.cursorRectangle
+    }
+
     color : "#050c13"
 
     clip : true
@@ -258,6 +262,28 @@ Rectangle{
                     } else if ( event.key === Qt.Key_T && (event.modifiers & Qt.ControlModifier ) ){
                         editor.toggleVisibility()
                         event.accepted = true
+                    } else if ( event.key === Qt.Key_Tab ){
+                        if ( event.modifiers & Qt.ShiftModifier ){
+                            codeHandler.manageIndent(
+                                editorArea.selectionStart, editorArea.selectionEnd - editorArea.selectionStart, true
+                            )
+                            event.accepted = true
+                        } else if ( selectionStart !== selectionEnd ){
+                            codeHandler.manageIndent(
+                                editorArea.selectionStart, editorArea.selectionEnd - editorArea.selectionStart, false
+                            )
+                            event.accepted = true
+                        } else {
+                            var clastpost = cursorPosition
+                            editorArea.text = editorArea.text.slice(0, clastpost) + "    " + editorArea.text.slice(clastpost)
+                            editorArea.cursorPosition = clastpost + 4
+                            event.accepted = true
+                        }
+                    } else if ( event.key === Qt.Key_Backtab ){
+                        codeHandler.manageIndent(
+                            editorArea.selectionStart, editorArea.selectionEnd - editorArea.selectionStart, true
+                        )
+                        event.accepted = true
                     } else if ( event.key === Qt.Key_Backslash && (event.modifiers & Qt.ControlModifier ) ){
                         editor.toggleProject()
                         event.accepted = true
@@ -318,13 +344,6 @@ Rectangle{
                         event.accepted = true
                     }
                 }
-                Keys.onTabPressed: {
-                    event.accepted = true
-                    var clastpos = cursorPosition
-                    editorArea.text = editorArea.text.slice(0, clastpos) + "    " + editorArea.text.slice(clastpos)
-                    editorArea.cursorPosition = clastpos + 4
-                }
-
                 Component.onCompleted: {
                     codeHandler.target = textDocument
                     if ( project.inFocus ){

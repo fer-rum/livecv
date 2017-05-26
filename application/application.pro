@@ -11,10 +11,15 @@ linkLocalLibrary(editor/qmljsparser, qmljsparser)
 unix{
     QMAKE_LFLAGS += \
         '-Wl,-rpath,\'\$$ORIGIN\'' \
-        '-Wl,-rpath,\'\$$ORIGIN/plugins/live\''
+        '-Wl,-rpath,\'\$$ORIGIN/link\''
+
+
+    createlinkdir.commands += $${QMAKE_MKDIR_CMD} $$shell_path($${DEPLOY_PATH}/link)
+    QMAKE_EXTRA_TARGETS    += createlinkdir
+    POST_TARGETDEPS        += createlinkdir
 }
 
-DESTDIR = $$DEPLOY_PWD
+DESTDIR = $$DEPLOY_PATH
 
 # Application
 # -----------
