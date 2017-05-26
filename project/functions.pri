@@ -240,6 +240,20 @@ defineReplace(deployFileCommand){
     return($$QMAKE_COPY_FILE $$DEPLOY_FROM $$DEPLOY_TO)
 }
 
+# Generates the commands required for creating a directory.
+# This function takes care of quoting and OS dependent path transformations
+#
+# Args: (dir_path)
+#  * dir_path: is the path to the directory that is to be created
+#
+defineReplace(createDirCommand){
+    DIR_PATH = $$shell_path($$shell_quote($$1))
+
+    debug(Creating directory $$DIR_PATH, 1)
+
+    return($$QMAKE_MKDIR $$DIR_PATH)
+}
+
 # Checks the qt version
 #
 # Args: (major, minor)
